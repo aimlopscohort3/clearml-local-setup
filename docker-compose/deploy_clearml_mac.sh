@@ -10,12 +10,6 @@ handle_error() {
 }
 trap 'handle_error $LINENO' ERR
 
-# # Check for root privileges
-# if [[ "$EUID" -ne 0 ]]; then
-#     echo "Please run this script as root (or using sudo)."
-#     exit 1
-# fi
-
 echo "Starting ClearML Server Deployment for macOS..."
 
 # Variables
@@ -36,8 +30,8 @@ mkdir -p "${CLEARML_DIR}/data/elastic_7" \
          "${CLEARML_DIR}/logs" \
          "${CLEARML_DIR}/config"
 
-# # Adjust permissions
-# chown -R $(whoami):staff "${CLEARML_DIR}"
+# Adjust permissions
+chown -R $(whoami):staff "${CLEARML_DIR}"
 
 # Download docker-compose.yml
 if curl -o "${CLEARML_DIR}/docker-compose.yml" "${DOCKER_COMPOSE_FILE_URL}"; then
